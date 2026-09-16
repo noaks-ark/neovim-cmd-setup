@@ -3,12 +3,18 @@ return {
     "stevearc/conform.nvim",
     opts = {
       formatters = {
+        -- Prefer the repo-local binaries over the mason ones on $PATH so the
+        -- editor formats with the same version as `pnpm format` / CI.
         oxfmt = {
-          command = "oxfmt",
+          command = function(self, ctx)
+            return require("conform.util").from_node_modules("oxfmt")(self, ctx)
+          end,
           stdin = true,
         },
         biome = {
-          command = "biome",
+          command = function(self, ctx)
+            return require("conform.util").from_node_modules("biome")(self, ctx)
+          end,
           stdin = true,
         },
       },
