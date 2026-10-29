@@ -1,4 +1,4 @@
-theme = "gruvbox-dark-hard"
+theme = "everforest-dark"
 mode = "auto"
 line_numbers = false
 wrap_lines = false
