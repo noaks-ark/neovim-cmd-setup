@@ -1,0 +1,28 @@
+theme:
+    ui:
+        sectionsShowCount: true
+        table:
+            showSeparator: true
+            compact: false
+    colors:
+        text:
+            primary: "#d3c6aa"
+            secondary: "#a7c080"
+            inverted: "#0b0f10"
+            faint: "#7a8478"
+            warning: "#dbbc7f"
+            success: "#a7c080"
+            error: "#e67e80"
+        background:
+            selected: "#1e2326"
+        border:
+            primary: "#414b50"
+            secondary: "#2e383c"
+            faint: "#1e2326"
+        icon:
+            newcontributor: "#83c092"
+            contributor: "#7fbbb3"
+            collaborator: "#d699b6"
+            member: "#dbbc7f"
+            owner: "#e69875"
+            unknownrole: "#7a8478"

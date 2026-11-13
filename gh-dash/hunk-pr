@@ -1,0 +1,17 @@
+#!/bin/zsh
+# usage: hunk-pr <number> <owner/repo>
+# hunk can't fetch PR comments itself; feed them in as an agent-context sidecar.
+set -euo pipefail
+ctx=$(mktemp -t hunk-pr)
+trap 'rm -f $ctx' EXIT
+gh api --paginate --slurp "repos/$2/pulls/$1/comments" | jq '{
+  version: 1,
+  files: (add | map(select(.line != null)) | group_by(.path) | map({
+    path: .[0].path,
+    annotations: map(
+      {summary: .body, author: .user.login, createdAt: .created_at, source: "github"}
+      + (if .side == "LEFT" then {oldRange: [.line, .line]} else {newRange: [.line, .line]} end)
+    )
+  }))
+}' > $ctx
+gh pr diff $1 -R $2 | hunk patch --agent-context $ctx --agent-notes
